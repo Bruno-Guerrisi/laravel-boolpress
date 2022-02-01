@@ -22,7 +22,7 @@
             </div>
 
             <div class="d-flex">
-                <a href="" class="btn btn-warning">Edit</a>
+                <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn-warning">Edit</a>
 
                 <form action="{{ route('admin.posts.destroy', $post->id) }}" method="post">
                     @csrf

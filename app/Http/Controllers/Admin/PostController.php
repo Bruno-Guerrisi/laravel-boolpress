@@ -85,9 +85,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $post = Post::where('slug', $slug)->first();
+
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -99,7 +101,33 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->validation_roles(), $this->validation_message());
+
+        $data = $request->all();
+
+        $post = Post::find($id);
+
+        if ($data['title'] != $post->title) {
+            
+            $slug = Str::slug($data['title'], '-');
+            $count = 1;
+            $base_slug = $slug;
+
+            while (Post::where('slug', $slug)->first()) {
+                $slug =$base_slug . '-' . $count;
+                $count++;
+            }
+            
+            $data['slug'] = $slug;
+            
+        }else {
+
+            $data['slug'] = $post->slug;
+        }
+
+        $post->update($data);
+
+        return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**
@@ -114,7 +142,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return view('admin.posts.index')->with('deleted', $post->title);
+        return redirect()->route('admin.posts.index')->with('deleted', $post->title);
     }
 
     private function validation_roles() {
