@@ -6,6 +6,13 @@
 
         <h1>Posts</h1>
 
+        @if (session('deleted'))
+            <div class="alert alert-success">
+                {{ session('deleted') }} deleted successfully!
+            </div>
+        @endif
+
+
         @if ($posts->isEmpty())
             <h3>No results</h3>
 
@@ -14,14 +21,16 @@
             <div class="row">
                 @foreach ($posts as $post)
 
-                <div class="col-4">
+                <div class="col-4 mb-4 h-100">
                     <div class="card text-center">
                         <div class="card-header">
                             <h5 class="card-title">{{$post->title}}</h5>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">{{$post->content}}</p>
+                            <p class="card-text">{{ Str::limit( $post->content , 120, '...') }}</p>
                         </div>
+
+                        <a href="{{ route('admin.posts.show', $post->slug) }}" class="btn btn-primary">View all</a>
                     </div>
                 </div>
 

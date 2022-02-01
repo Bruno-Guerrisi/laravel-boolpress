@@ -35,12 +35,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+
                         <li class="nav-item">
                             <a class="nav-link" target="_blank" href="{{ url('/') }}">Front office</a>
                         </li>
+
                         <li class="nav-item
                                     @if( Request::route()->getName() == 'admin.posts.index') active @endif">
                             <a class="nav-link" target="_blank" href="{{ route('admin.posts.index') }}">Posts</a>
+                        </li>
+
+                        <li class="nav-item
+                                    @if( Request::route()->getName() == 'admin.posts.create') active @endif">
+                            <a class="nav-link" target="_blank" href="{{ route('admin.posts.create') }}">Create post</a>
                         </li>
                     </ul>
 

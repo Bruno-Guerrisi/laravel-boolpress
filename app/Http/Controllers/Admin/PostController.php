@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 use App\Post;
@@ -28,7 +29,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -39,7 +40,26 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->validation_roles(), $this->validation_message());
+
+        $data = $request->all();
+
+        $new_post = new Post();
+
+        $slug = Str::slug($data['title'], '-');
+        $count = 1;
+
+        while (Post::where('slug', $slug)->first()) {
+            $slug .= '-' .$count;
+            $count++;
+        }
+        $data['slug'] = $slug;
+
+        $new_post->fill($data);
+
+        $new_post->save();
+
+        return redirect()->route('admin.posts.show', $new_post->slug);
     }
 
     /**
@@ -48,9 +68,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $post = Post::where('slug', $slug)->first();
+
+        if ( ! $post ) {
+            abort(404);
+        }
+
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -84,6 +110,23 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+
+        $post->delete();
+
+        return view('admin.posts.index')->with('deleted', $post->title);
+    }
+
+    private function validation_roles() {
+        return [
+            'title' => 'required',
+            'content' => 'required',
+        ];
+    }
+
+    private function validation_message() {
+        return [
+            'required' => 'this fild is required',
+        ];
     }
 }
