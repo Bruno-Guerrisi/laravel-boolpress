@@ -11,8 +11,8 @@ class CategoryController extends Controller
 {
     public function show($id) {
 
-        $categories = Category::find($id);
+        $category = Category::find($id);
 
-        return view('admin.categories.show', compact('categories'));
+        return view('admin.categories.show', compact('category'));
     }
 }

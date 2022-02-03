@@ -6,7 +6,7 @@
 
         <h1 class="mb-5">Post Categories</h1>
 
-        @foreach ($categories->posts as $post)
+        @foreach ($category->posts as $post)
 
         <div class="card text-center mb-4">
             <div class="card-header">
