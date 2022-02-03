@@ -13,6 +13,12 @@
             <p>
                 {{ $post->content}}
             </p>
+
+            <span class="d-block w-100 mb-3">Cayegory:
+
+                @if ($post->category) {{$post->category->name}} @else No category @endif
+            
+            </span>
         </div>
 
         <div class="row justify-content-between">

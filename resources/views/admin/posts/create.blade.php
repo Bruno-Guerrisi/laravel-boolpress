@@ -30,6 +30,29 @@
 
                 <textarea id="content" name="content" placeholder="Insert the content" class="form-control" row="4">{{ old('content') }}</textarea>
             </div>
+
+
+            <div class="mb-3">
+
+                <label for="category_id" class="form-label">Category</label>
+
+                @error('category_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+
+                <select class="form-control" name="category_id" id="category_id">
+                    <option value="Unsigned">without category</option>
+                    @foreach($categories as $category)
+
+                        <option value="{{ $category->id }}" 
+                                @if ($category->id == old('category_id') ) selected @endif>
+                            {{ $category->name }}
+                        </option>
+
+                    @endforeach
+
+                </select>
+            </div>
     
             <button type="submit" class="btn btn-success">Seend</button>
         

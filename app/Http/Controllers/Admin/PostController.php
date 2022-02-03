@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 use App\Post;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -29,7 +30,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all();
+
+
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -72,6 +76,8 @@ class PostController extends Controller
     {
         $post = Post::where('slug', $slug)->first();
 
+        
+
         if ( ! $post ) {
             abort(404);
         }
@@ -88,8 +94,9 @@ class PostController extends Controller
     public function edit($slug)
     {
         $post = Post::where('slug', $slug)->first();
+        $categories = Category::all();
 
-        return view('admin.posts.edit', compact('post'));
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -149,6 +156,7 @@ class PostController extends Controller
         return [
             'title' => 'required',
             'content' => 'required',
+            'category_id' => 'nullable|exists:categories,id',
         ];
     }
 

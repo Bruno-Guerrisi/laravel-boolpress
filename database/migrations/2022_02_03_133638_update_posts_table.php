@@ -33,8 +33,8 @@ class UpdatePostsTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             
-            $table->ddropForeign('posts_category_id_foreign');
-            $table->xdropTable('category_id');
+            $table->dropForeign('posts_category_id_foreign');
+            $table->dropColumn('category_id');
         });
     }
 }
