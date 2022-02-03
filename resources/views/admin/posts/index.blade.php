@@ -30,7 +30,14 @@
                             <p class="card-text">{{ Str::limit( $post->content , 120, '...') }}</p>
                         </div>
                         <div class="card-footer">
-                            @if ($post->category) {{$post->category->name}} @else No category @endif
+                                
+                            @if ($post->category)
+
+                            <a href="{{ route('admin.category', $post->category->id)}}">
+                                {{$post->category->name}}
+                            </a>
+                            
+                            @else No category @endif
                         </div>
 
                         <a href="{{ route('admin.posts.show', $post->slug) }}" class="btn btn-primary">View all</a>
