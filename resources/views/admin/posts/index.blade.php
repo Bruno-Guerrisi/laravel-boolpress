@@ -47,8 +47,31 @@
 
                 @endforeach
             </div>
+
+
+            <div>
+                @foreach ($tags as $tag)
+
+                    <h3>{{$tag->name}}</h3>
+
+                    @if ($tag->posts->isEmpty())
+                    
+                        <ul>
+                            <li>
+                                <a href="{{ route('admin.posts.show', $post->slug) }}">{{$post->title}}</a>
+                            </li>
+                        </ul>
+                    @else
+
+                        <p>No post</p>
+                    @endif
+
+                @endforeach
+            </div>
             
         @endif
+
+
 
     </section>
 

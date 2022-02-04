@@ -20,8 +20,9 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts', 'tags'));
     }
 
     /**
@@ -144,6 +145,18 @@ class PostController extends Controller
         }
 
         $post->update($data);
+
+        //update pivot table
+        if (array_key_exists('tags', $data)) {
+
+            /* update checkbox */
+            $post->tags()->sync($data['tags']);
+        } else {
+
+            /* nessun checkbox */
+            $post->tags()->detach();
+        }
+        
 
         return redirect()->route('admin.posts.show', $post->slug);
     }
