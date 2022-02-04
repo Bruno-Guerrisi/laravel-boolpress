@@ -33,8 +33,10 @@ class PostController extends Controller
     {
         $categories = Category::all();
 
+        $tags = Tag::all();
 
-        return view('admin.posts.create', compact('categories'));
+
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -48,6 +50,7 @@ class PostController extends Controller
         $request->validate($this->validation_roles(), $this->validation_message());
 
         $data = $request->all();
+        
 
         $new_post = new Post();
 
@@ -63,6 +66,12 @@ class PostController extends Controller
         $new_post->fill($data);
 
         $new_post->save();
+
+        /* salvataggio in pivot */
+
+        if (array_key_exists('tags', $data)) {
+            $new_post->tags()->attach($data['tags']);
+        }
 
         return redirect()->route('admin.posts.show', $new_post->slug);
     }
@@ -96,8 +105,9 @@ class PostController extends Controller
     {
         $post = Post::where('slug', $slug)->first();
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -158,6 +168,7 @@ class PostController extends Controller
             'title' => 'required',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|exists:tags,id',
         ];
     }
 

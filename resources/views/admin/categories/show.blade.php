@@ -25,6 +25,7 @@
                 
                 @else No category @endif
             </div>
+
         </div>
 
         @endforeach

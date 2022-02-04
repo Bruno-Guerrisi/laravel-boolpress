@@ -9,6 +9,8 @@
         <form action="{{ route('admin.posts.store') }}" method="post">
             @csrf
 
+
+            {{-- name --}}
             <div class="mb-3">
 
                 <label for="title" class="form-label">Title</label>
@@ -20,6 +22,8 @@
                 <input type="text" id="title" name="title" placeholder="Insert the title" class="form-control" value="{{ old('title') }}">
             </div>
 
+
+            {{-- content --}}
             <div class="mb-3">
 
                 <label for="content" class="form-label">Content</label>
@@ -31,7 +35,7 @@
                 <textarea id="content" name="content" placeholder="Insert the content" class="form-control" row="4">{{ old('content') }}</textarea>
             </div>
 
-
+            {{-- categories --}}
             <div class="mb-3">
 
                 <label for="category_id" class="form-label">Category</label>
@@ -52,6 +56,28 @@
                     @endforeach
 
                 </select>
+            </div>
+
+            {{-- tags --}}
+            <div class="mb-3">
+                <h3>Tags</h3>
+
+                @foreach ($tags as $tag)
+
+                <span class="d-inline-block mr-3">
+
+                    <input type="checkbox" name="tags[]" 
+                            id="tag{{ $loop->iteration }}" 
+                            value="{{ $tag->id }}"
+
+                            @if( in_array( $tag->id, old( 'tags', [] ) ) ) checked @endif>
+
+                    <label for="tag{{ $loop->iteration }}">
+                        {{ $tag->name }}
+                    </label>
+                </span>
+
+                @endforeach
             </div>
     
             <button type="submit" class="btn btn-success">Seend</button>

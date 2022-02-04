@@ -29,6 +29,7 @@
                         <div class="card-body">
                             <p class="card-text">{{ Str::limit( $post->content , 120, '...') }}</p>
                         </div>
+                        
                         <div class="card-footer">
                                 
                             @if ($post->category)

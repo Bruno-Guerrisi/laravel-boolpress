@@ -19,6 +19,18 @@
                 @if ($post->category) {{$post->category->name}} @else No category @endif
             
             </span>
+            <span class="d-block w-100 mb-3">Tags: 
+
+                    
+                @if (!$post->tags->isEmpty())
+
+                @foreach ($post->tags as $tag)
+                    <span class="badge badge-primary">{{$tag->name}}</span>
+                @endforeach
+
+                @else No tags @endif
+            
+            </span>
         </div>
 
         <div class="row justify-content-between">
