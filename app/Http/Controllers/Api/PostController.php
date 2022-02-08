@@ -11,7 +11,7 @@ class PostController extends Controller
     
     public function index() {
 
-        $posts = Post::paginate(4);
+        $posts = Post::paginate(3);
 
         return response()->json($posts);
     }
