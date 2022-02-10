@@ -1,104 +1,24 @@
 <template>
-    <section class="container mt-4">
+    <section>
 
-        <div v-if="posts">
+        <Header />
 
-            <div class="row">
-
-                <div class="col-4 mb-4 h-100"
-                    v-for="post in posts" :key="`post-${post.id}`">
-
-                    <div class="card text-center">
-                        <div class="card-header">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">{{ extractString( post.content, 120) }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <p class="card-text">{{ getDate( post.created_at ) }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                
-            <button class="btn btn-primary"
-                    :disabled="pagination.currentPage === 1"
-                    @click="getPosts(pagination.currentPage - 1)">
-                    Prev
-            </button>
-
-            <button class="btn"
-                    v-for="i in pagination.lastPage"
-                    :key="`page-${i}`"
-                    @click="getPosts(i)"
-                    :class="pagination.currentPage === i ? 'btn-primary' : 'btn-secondary'">
-                    {{ i }}
-            </button>
-
-
-            <button class="btn btn-primary"
-                    :disabled="pagination.currentPage === pagination.lastPage"
-                    @click="getPosts(pagination.currentPage + 1)">
-                    next
-            </button>
-
-
-        </div>
-        <Loading v-else />
+        <main>
+            <router-view></router-view>
+        </main>
 
     </section>
 </template>
 
 <script>
-import axios from "axios";
-import Loading from "../components/Loading";
+import Header from "../components/Header";
 
 export default {
     name: 'App',
-    component: {
-        Loading,
+
+    components: {
+        Header,
     },
-    data () {
-        return {
-            posts: null,
-            pagination: null,
-        }
-    },
-    created() {
-        this.getPosts()
-    },
-    methods: {
-        getPosts(page = 1) {
-
-            axios.get(`http://127.0.0.1:8000/api/posts?page=${page}`)
-            .then(res => {
-
-                this.posts= res.data.data;
-
-                this.pagination = {
-                    currentPage: res.data.current_page,
-                    lastPage: res.data.last_page,
-                }
-            });
-        },
-        extractString(string, maxLetter) {
-
-            if (string.length > maxLetter) {
-                return string.substring(0, maxLetter) + '...';
-            }
-
-            return string;
-        },
-        getDate(postDate) {
-
-            const date = new Date(postDate);
-
-            const formatted = new Intl.DateTimeFormat('it-IT').format(date)
-
-            return formatted;
-        }
-    }
 }
 
 </script>

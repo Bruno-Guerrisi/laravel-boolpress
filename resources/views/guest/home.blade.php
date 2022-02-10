@@ -13,8 +13,7 @@
     <title>Front office</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Front office</h1>
+    <div>
         
         <div id="root"> </div>
     </div>
