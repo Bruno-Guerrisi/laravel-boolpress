@@ -20,6 +20,10 @@
                         <li class="nav-item">
                             <router-link class="nav-link me-3" :to="{name: 'about'}">About</router-link>
                         </li>
+                        
+                        <li class="nav-item">
+                            <router-link class="nav-link me-3" :to="{name: 'blog'}">Blog</router-link>
+                        </li>
                     </ul>
 
                     <form class="d-flex">
