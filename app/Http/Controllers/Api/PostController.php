@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Post;
 
@@ -22,9 +23,15 @@ class PostController extends Controller
                     ->with(['category', 'tags'])
                     ->first();
 
+
         if (! $post) {
             $post['not_found'] = true;
+        } 
+        else {
+            
+            $post['date_formatted'] = $post['created_at']->format('l d/m/y');
         }
+        // $post['date_formatted'] = 'porco';
 
 
         return response()->json($post);

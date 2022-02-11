@@ -11,16 +11,22 @@
 
                 <h1 class="w-100 mb-3">{{ post.title }}</h1>
 
-                <p>
+                <p class="mb-3">
                     {{ post.content}}
                 </p>
 
-                <div class="mb-3 text-center">
+                <span>
+                    Date: {{ post.date_formatted}}
+                </span>
+
+                <div class="mb-3 text-center" v-if="post.category">
                     <h4 class="mb-2">Category</h4>
                     <div class="badge badge-primary">{{ post.category.name }}</div>
                 </div>
 
-                <Tags :list="post.tags" />
+                <div v-if="post.tags.length != 0">
+                    <Tags :list="post.tags" />
+                </div>
                 
             </div>
         </div>
