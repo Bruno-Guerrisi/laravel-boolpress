@@ -11,6 +11,7 @@ class Post extends Model
         'slug',
         'content',
         'category_id',
+        'cover',
     ]; //
 
     public function category() {

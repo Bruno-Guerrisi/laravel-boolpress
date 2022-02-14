@@ -6,7 +6,7 @@
 
         <h1 class="mb-5">Create a new post</h1>
 
-        <form action="{{ route('admin.posts.store') }}" method="post">
+        <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
 
@@ -79,7 +79,28 @@
 
                 @endforeach
             </div>
+
+
+            {{-- image --}}
+            <div class="mb-3">
+                <h4>Image</h4>
+
+                @error('cover')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+
+                <span class="d-inline-block mt-3">
+
+                    <label class="form-label" for="cover">Post Image</label>
+
+                    <input class="form-control-file" type="file" name="cover" id="cover">
+
+                </span>
+
+
+            </div>
     
+            {{-- submit --}}
             <button type="submit" class="btn btn-success">Seend</button>
         
         </form>
