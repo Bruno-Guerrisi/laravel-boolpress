@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h5 class="card-title">{{ post.title }}</h5>
                         </div>
-                        <div class="card-img">
+                        <div v-if="post.cover" class="card-img">
                             <img :src="post.cover" :alt="post.title">
                         </div>
                         <div class="card-body">

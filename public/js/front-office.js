@@ -2248,6 +2248,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3070,11 +3074,13 @@ var render = function () {
                           ]),
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "card-img" }, [
-                          _c("img", {
-                            attrs: { src: post.cover, alt: post.title },
-                          }),
-                        ]),
+                        post.cover
+                          ? _c("div", { staticClass: "card-img" }, [
+                              _c("img", {
+                                attrs: { src: post.cover, alt: post.title },
+                              }),
+                            ])
+                          : _vm._e(),
                         _vm._v(" "),
                         _c("div", { staticClass: "card-body" }, [
                           _c("p", { staticClass: "card-text" }, [
@@ -3292,6 +3298,14 @@ var render = function () {
                     "\n            "
                 ),
               ]),
+              _vm._v(" "),
+              _vm.post.cover
+                ? _c("figure", { staticClass: "card-img" }, [
+                    _c("img", {
+                      attrs: { src: _vm.post.cover, alt: _vm.post.title },
+                    }),
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _vm.post.category
                 ? _c("div", { staticClass: "mb-3 text-center" }, [

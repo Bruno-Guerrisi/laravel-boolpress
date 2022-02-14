@@ -19,6 +19,10 @@
                     Date: {{ post.date_formatted}}
                 </span>
 
+                <figure v-if="post.cover" class="card-img">
+                    <img :src="post.cover" :alt="post.title">
+                </figure>
+
                 <div class="mb-3 text-center" v-if="post.category">
                     <h4 class="mb-2">Category</h4>
                     <div class="badge badge-primary">{{ post.category.name }}</div>
